@@ -103,10 +103,13 @@ struct libnet_tcp_hdr
 
 
 void printIp(struct libnet_ipv4_hdr* ip) {
-	printf("Source ip : %s\n", inet_ntoa(ip->ip_src));
-	printf("Destination ip : %s\n", inet_ntoa(ip->ip_dst));
+   char src_ip[INET_ADDRSTRLEN];
+   char dst_ip[INET_ADDRSTRLEN];
+   inet_ntop(AF_INET, &(ip->ip_src), src_ip, INET_ADDRSTRLEN);
+   inet_ntop(AF_INET, &(ip->ip_dst), dst_ip, INET_ADDRSTRLEN);
+   printf("Source ip : %s\n", src_ip);
+   printf("Destination ip : %s\n", dst_ip);
 }
-
 void printPort(struct libnet_tcp_hdr* port) {
 	printf("Source port : %u\n", ntohs(port->th_sport));
     	printf("Destination port : %u\n", ntohs(port->th_dport));
